@@ -13,7 +13,7 @@ Generate exactly:
 2. 3 medium difficulty multiple choice questions (MCQs) with 4 options each and correct answers
 3. 3 difficult multiple choice questions (MCQs) with 4 options each and correct answers
 
-For medium and difficult level Ask the question inside the given concept . For ex, if user enter python then ask the questions inside the python like exception handling, Opps concept and all. do this for all the domains
+For medium and difficult level Ask the question inside the given concept . For ex, if user enter python then ask the questions inside the python like exception handling, Opps concept and all. do this for all the
 
 Return ONLY valid JSON without any additional text or formatting:
 
@@ -26,7 +26,7 @@ Return ONLY valid JSON without any additional text or formatting:
       "correct": "A",
       "explanation": "Brief explanation of why this is correct"
     }
-  ],
+  ]
   
 }`;
 
