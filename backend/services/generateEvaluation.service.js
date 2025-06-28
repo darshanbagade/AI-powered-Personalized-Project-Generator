@@ -9,9 +9,11 @@ export async function generateEvaluationService({ concept, domains, summary }) {
 Summary: ${summary}
 
 Generate exactly:
-1. 5 easy multiple choice questions (MCQs) with 4 options each and correct answers
-2. 2 medium difficulty fill-in-the-blank questions with correct answers
-3. 1 hard real-world application question with expected answer
+1. 4 easy multiple choice questions (MCQs) with 4 options each and correct answers
+2. 3 medium difficulty multiple choice questions (MCQs) with 4 options each and correct answers
+3. 3 difficult multiple choice questions (MCQs) with 4 options each and correct answers
+
+For medium and difficult level Ask the question inside the given concept . For ex, if user enter python then ask the questions inside the python like exception handling, Opps concept and all. do this for all the domains
 
 Return ONLY valid JSON without any additional text or formatting:
 
@@ -25,20 +27,7 @@ Return ONLY valid JSON without any additional text or formatting:
       "explanation": "Brief explanation of why this is correct"
     }
   ],
-  "fillBlanks": [
-    {
-      "id": "fill1",
-      "question": "Fill in the blank: _____ is used for...",
-      "correct": "expected answer",
-      "explanation": "Brief explanation"
-    }
-  ],
-  "realWorld": {
-    "id": "real1",
-    "question": "Real-world application question",
-    "expectedAnswer": "Expected answer or key points",
-    "explanation": "Brief explanation"
-  }
+  
 }`;
 
     const response = await fetch(`${GEMINI_API_URL}?key=${GEMINI_API_KEY}`, {
