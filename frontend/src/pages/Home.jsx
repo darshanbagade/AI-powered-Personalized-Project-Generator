@@ -9,15 +9,22 @@ import {
   MessageSquare,
   Search,
   BookOpen,
-  Zap
+  Zap,
+  Shield,
+  Lock,
+  Eye,
+  Key,
+  Fingerprint
 } from "lucide-react";
-
-import {useAuth} from '../context/AuthContext'
+import { useGSAP } from '@gsap/react'
+import gsap from 'gsap'
+import 'remixicon/fonts/remixicon.css'
+import { useAuth } from '../context/AuthContext'
 
 const Home = () => {
   const [scrollY, setScrollY] = useState(0);
-  const {isAuthenticated } = useAuth()
-  
+  const { isAuthenticated } = useAuth()
+
   console.log(isAuthenticated)
   useEffect(() => {
     const handleScroll = () => setScrollY(window.scrollY);
@@ -64,27 +71,88 @@ const Home = () => {
     }
   ];
 
-  return (
-    <div className="min-h-screen bg-gradient-to-br from-black via-[#000304] to-black text-white overflow-x-hidden">
-      
-      {/* Hero Section */}
-      <section className="relative min-h-screen w-full flex flex-col items-center justify-center px-4">
+  const [showContent, setShowContent] = useState(false);
+  useGSAP(() => {
+    const tl = gsap.timeline();
+    tl.to('.vi-mask-group', {
+      rotate: 10,
+      duration: 2,
+      ease: 'power4.easeInOut',
+      transformOrigin: '50% 50%',
+    })
 
-        {/* Navbar */}
-        <div className="flex justify-end w-full absolute top-3">
-        <Link to="/suggest-project">
-              <Button
-                size="lg"
-                variant="outline"
-                className="border-2 border-white/30 text-white hover:bg-white/10 mr-10 mt-7 px-8 py-4 text-lg rounded-xl backdrop-blur-lg transition-all duration-300"
+    tl.to('.vi-mask-group', {
+      scale: 10,
+      duration: 2,
+      delay: -1.8,
+      ease: 'Expo.easeInOut',
+      transformOrigin: '50% 50%',
+      opacity: 0,
+      onUpdate: function () {
+        if (this.progress() >= .9) {
+          document.querySelector('.svg').remove();
+          setShowContent(true);
+          this.kill();
+        }
+      }
+    })
+
+  })
+  return (<>
+    <div className="svg flex items-center justify-center fixed top-0 left-0 z-[100] w-full h-screen overflow-hidden bg-[#000]">
+      <svg viewBox="0 0 800 600" preserveAspectRatio="xMidYMid slice">
+        <defs>
+          <mask id="viMask">
+            <rect width="100%" height="100%" fill="black" />
+            <g className="vi-mask-group">
+              <text
+                x="50%"
+                y="50%"
+                fontSize="250"
+                textAnchor="middle"
+                fill="white"
+                dominantBaseline="middle"
+                fontFamily="Arial Black"
               >
-                Go Real World
-              </Button>
-            </Link>
+                GG
+              </text>
+            </g>
+          </mask>
+        </defs>
+        <image
+          href="./bg.png"
+          width="100%"
+          height="100%"
+          preserveAspectRatio="xMidYMid slice"
+          mask="url(#viMask)"
+        />
+      </svg>
+    </div>
+    <div className="min-h-screen cyber-mesh-bg text-white overflow-x-hidden">
+      {/* Floating Security Icons */}
+      <div className="security-icons">
+        <Shield className="security-icon text-4xl" />
+        <Lock className="security-icon text-3xl" />
+        <Eye className="security-icon text-4xl" />
+        <Key className="security-icon text-3xl" />
+        <Fingerprint className="security-icon text-4xl" />
       </div>
+      
+      <section className="relative min-h-screen flex flex-col items-center justify-center px-4 w-full">
+        <div className="flex justify-end w-full absolute top-0">
+          <Link to="/suggest-project">
+            <Button
+              size="lg"
+              variant="outline"
+              className="glass-card border-2 border-white/30 text-white hover:bg-white/10 mr-10 mt-7 px-8 py-4 text-lg rounded-xl backdrop-blur-lg transition-all duration-300 security-border"
+            >
+              Go Real World
+            </Button>
+          </Link>
+        </div>
         <div className="text-center z-10 max-w-4xl mx-auto">
           <div className="animate-fade-in">
-            <h1 className="text-6xl md:text-8xl font-bold mb-6 bg-gradient-to-r from-white via-white to-white bg-clip-text text-transparent animate-pulse">
+            <h1 className="text-6xl md:text-8xl font-bold mb-6 privacy-text animate-pulse">
               Build Your Future
             </h1>
             <p className="text-xl md:text-2xl mb-8 text-gray-300 leading-relaxed">
@@ -93,7 +161,7 @@ const Home = () => {
             <Link to="/login">
               <Button
                 size="lg"
-                className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white px-12 py-6 text-xl rounded-2xl shadow-2xl hover:shadow-purple-500/25 transition-all duration-300 hover:scale-105 group"
+                className="privacy-gradient text-white px-12 py-6 text-xl rounded-2xl shadow-2xl hover:shadow-purple-500/25 transition-all duration-300 hover:scale-105 group"
               >
                 Try Me Now
                 <ArrowDown className="ml-2 group-hover:translate-y-1 transition-transform duration-300" />
@@ -102,14 +170,14 @@ const Home = () => {
           </div>
         </div>
 
-        {/* Floating Elements */}
-        <div className="absolute top-20 left-10 w-20 h-20 bg-gradient-to-r from-cyan-400 to-blue-500 rounded-full opacity-20 animate-pulse" />
+        {/* Enhanced Floating Elements */}
+        <div className="absolute top-20 left-10 w-20 h-20 bg-gradient-to-r from-cyan-400 to-blue-500 rounded-full opacity-20 animate-pulse blur-sm" />
         <div
-          className="absolute bottom-32 right-16 w-16 h-16 bg-gradient-to-r from-pink-400 to-purple-500 rounded-full opacity-20 animate-pulse"
+          className="absolute bottom-32 right-16 w-16 h-16 bg-gradient-to-r from-pink-400 to-purple-500 rounded-full opacity-20 animate-pulse blur-sm"
           style={{ animationDelay: "1s" }}
         />
         <div
-          className="absolute top-1/2 right-10 w-12 h-12 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-full opacity-20 animate-pulse"
+          className="absolute top-1/2 right-10 w-12 h-12 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-full opacity-20 animate-pulse blur-sm"
           style={{ animationDelay: "2s" }}
         />
       </section>
@@ -118,7 +186,7 @@ const Home = () => {
       <section className="py-20 px-4 relative">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="text-5xl font-bold mb-6 bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">
+            <h2 className="text-5xl font-bold mb-6 privacy-text">
               Powerful Features
             </h2>
             <p className="text-xl text-gray-300 max-w-2xl mx-auto">
@@ -132,7 +200,7 @@ const Home = () => {
               return (
                 <Card
                   key={feature.title}
-                  className="bg-white/10 backdrop-blur-lg border-white/20 hover:bg-white/20 transition-all duration-300 hover:scale-105 hover:shadow-2xl group rounded-2xl"
+                  className="glass-card hover:bg-white/20 transition-all duration-300 hover:scale-105 hover:shadow-2xl group rounded-2xl"
                   style={{
                     animationDelay: `${index * 0.1}s`,
                     transform: `translateY(${Math.sin(scrollY * 0.01 + index) * 10}px)`
@@ -183,6 +251,7 @@ const Home = () => {
         </div>
       </section>
     </div>
+  </>
   );
 };
 
