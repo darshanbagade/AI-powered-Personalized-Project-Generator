@@ -1,33 +1,31 @@
 import fetch from 'node-fetch';
 
-const GEMINI_API_KEY = process.env.GEMINI_API_KEY || 'AIzaSyBvQvQvQvQvQvQvQvQvQvQvQvQvQvQvQvQ';
+const GEMINI_API_KEY = process.env.GEMINI_API_KEY || 'AIzaSyBvQvQvQvQvQvQvQvQvQvQvQvQvQvQvQ';
 const GEMINI_API_URL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent';
 
 export async function generateEvaluationService({ concept, domains, summary }) {
     const prompt = `You are an expert education assistant. Generate a quiz for the concept "${concept}" in the domain(s): ${domains.join(', ')}.
-    
+
 Summary: ${summary}
 
-Generate exactly:
-1. 4 easy multiple choice questions (MCQs) with 4 options each and correct answers
-2. 3 medium difficulty multiple choice questions (MCQs) with 4 options each and correct answers
-3. 3 difficult multiple choice questions (MCQs) with 4 options each and correct answers
+Generate exactly 7 multiple choice questions (MCQs) with 4 options each and correct answers. The difficulty level should be:
+- 2 easy MCQs
+- 3 medium MCQs
+- 2 hard MCQs
 
-For medium and difficult level Ask the question inside the given concept . For ex, if user enter python then ask the questions inside the python like exception handling, Opps concept and all. do this for all the
-
-Return ONLY valid JSON without any additional text or formatting:
+Return ONLY valid JSON with the following format and no additional text:
 
 {
   "mcqs": [
     {
       "id": "mcq1",
+      "difficulty": "easy",
       "question": "Question text?",
       "options": ["A", "B", "C", "D"],
       "correct": "A",
-      "explanation": "Brief explanation of why this is correct"
+      "explanation": "Brief explanation"
     }
   ]
-  
 }`;
 
     const response = await fetch(`${GEMINI_API_URL}?key=${GEMINI_API_KEY}`, {
@@ -53,77 +51,59 @@ Return ONLY valid JSON without any additional text or formatting:
         console.error('Gemini API error:', errorText);
         throw new Error(`Gemini API error: ${response.status}`);
     }
-    console.log(response);
-    
+
     const data = await response.json();
-    console.log(data);
-    
     const content = data.candidates?.[0]?.content?.parts?.[0]?.text || '';
-    
+
     try {
-        // Clean the content to extract only JSON
         let jsonContent = content.trim();
-        
-        // Remove any markdown formatting
         jsonContent = jsonContent.replace(/```json\s*/g, '').replace(/```\s*$/g, '');
-        
-        // Find JSON object
+
         const jsonMatch = jsonContent.match(/\{[\s\S]*\}/);
         if (!jsonMatch) {
             console.error('No JSON found in response:', content);
             throw new Error('No JSON found in response');
         }
-        
+
         const parsed = JSON.parse(jsonMatch[0]);
-        
-        // Validate required fields
-        if (!parsed.mcqs || !parsed.fillBlanks || !parsed.realWorld) {
-            throw new Error('Missing required fields in response');
+
+        if (!parsed.mcqs || parsed.mcqs.length !== 7) {
+            throw new Error('Missing or insufficient MCQs in response');
         }
-        
+
         return parsed;
     } catch (parseError) {
         console.error('Failed to parse quiz JSON:', parseError);
         console.error('Raw response:', content);
-        
-        // Return fallback quiz data
-        return {
-            mcqs: [
-                {
-                    id: "mcq1",
-                    question: "What is the basic concept of " + concept + "?",
-                    options: ["Option A", "Option B", "Option C", "Option D"],
-                    correct: "Option A",
-                    explanation: "This is the fundamental concept."
-                },
-                {
-                    id: "mcq2",
-                    question: "Which domain does " + concept + " primarily belong to?",
-                    options: ["Coding", "Hardware", "Design", "Research"],
-                    correct: domains[0] || "Coding",
-                    explanation: "This concept is primarily used in " + (domains[0] || "Coding") + "."
-                }
-            ],
-            fillBlanks: [
-                {
-                    id: "fill1",
-                    question: "Fill in the blank: " + concept + " is used for _____.",
-                    correct: "problem solving",
-                    explanation: "This concept helps in solving problems."
-                },
-                {
-                    id: "fill2",
-                    question: "The main purpose of " + concept + " is to _____.",
-                    correct: "improve efficiency",
-                    explanation: "It improves the efficiency of the process."
-                }
-            ],
-            realWorld: {
-                id: "real1",
-                question: "How would you apply " + concept + " in a real-world scenario?",
-                expectedAnswer: "Apply the concept to solve practical problems in " + domains.join(", "),
-                explanation: "This concept can be applied to various real-world scenarios."
-            }
-        };
+
+        // Fallback: 2 easy, 3 medium, 2 hard
+        const fallbackMcqs = [
+            ...Array.from({ length: 2 }, (_, i) => ({
+                id: `mcq_easy_${i + 1}`,
+                difficulty: 'easy',
+                question: `Sample easy question ${i + 1} on ${concept}?`,
+                options: ['A', 'B', 'C', 'D'],
+                correct: 'A',
+                explanation: 'Easy question explanation.'
+            })),
+            ...Array.from({ length: 3 }, (_, i) => ({
+                id: `mcq_medium_${i + 1}`,
+                difficulty: 'medium',
+                question: `Sample medium question ${i + 1} on ${concept}?`,
+                options: ['A', 'B', 'C', 'D'],
+                correct: 'B',
+                explanation: 'Medium question explanation.'
+            })),
+            ...Array.from({ length: 2 }, (_, i) => ({
+                id: `mcq_hard_${i + 1}`,
+                difficulty: 'hard',
+                question: `Sample hard question ${i + 1} on ${concept}?`,
+                options: ['A', 'B', 'C', 'D'],
+                correct: 'C',
+                explanation: 'Hard question explanation.'
+            })),
+        ];
+
+        return { mcqs: fallbackMcqs };
     }
-} 
+}
