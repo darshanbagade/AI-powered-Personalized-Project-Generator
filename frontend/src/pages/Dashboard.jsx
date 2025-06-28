@@ -4,27 +4,32 @@ import { useAuth } from '../context/AuthContext';
 const Dashboard = () => {
   const { user, logout, loading } = useAuth();
 
-  if (loading) return <div className="flex justify-center items-center h-screen">Loading...</div>;
+  if (loading) return <div className="flex justify-center items-center h-screen cyber-mesh-bg text-white">Loading...</div>;
 
   return (
-    <div className="min-h-screen bg-[#212121] flex flex-col items-center justify-center">
-      <div className="bg-white p-8 rounded shadow-md w-full max-w-lg">
-        <h2 className="text-2xl font-bold mb-4">Dashboard</h2>
-        <div className="mb-4">
-          <span className="font-semibold">Name:</span> {user?.name}
-        </div>
-        <div className="mb-4">
-          <span className="font-semibold">Verified:</span> {user?.isAccountVerified ? 'Yes' : 'No'}
+    <div className="min-h-screen cyber-mesh-bg flex flex-col items-center justify-center p-4">
+      <div className="glass-card p-8 rounded-2xl shadow-2xl w-full max-w-lg text-white">
+        <h2 className="text-3xl font-bold mb-6 privacy-text">Dashboard</h2>
+        <div className="space-y-4">
+          <div className="flex justify-between items-center p-3 rounded-lg bg-white/5">
+            <span className="font-semibold text-gray-300">Name:</span>
+            <span className="text-white">{user?.name}</span>
+          </div>
+          <div className="flex justify-between items-center p-3 rounded-lg bg-white/5">
+            <span className="font-semibold text-gray-300">Verified:</span>
+            <span className={`${user?.isAccountVerified ? 'text-green-400' : 'text-red-400'}`}>
+              {user?.isAccountVerified ? 'Yes' : 'No'}
+            </span>
+          </div>
         </div>
         <button
           onClick={logout}
-          className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 transition"
+          className="w-full mt-6 privacy-gradient text-white px-6 py-3 rounded-xl hover:shadow-lg transition-all duration-300 hover:scale-105"
         >
           Logout
         </button>
-        <div className="mt-8">
-          {/* Placeholder for CRUD data table/cards */}
-          <div className="text-gray-500">Your data will appear here.</div>
+        <div className="mt-8 p-4 rounded-lg bg-white/5">
+          <div className="text-gray-400 text-center">Your data will appear here.</div>
         </div>
       </div>
     </div>
