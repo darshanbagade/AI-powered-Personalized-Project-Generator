@@ -1,3 +1,4 @@
+ 
 .DS_*
 *.log
 logs
@@ -18,4 +19,4 @@ sketch
 
 
 
-# End of https://mrkandreev.name/snippets/gitignore-generator/#react,dotenv,node,npm,env
+# End of https://mrkandreev.name/snippets/gitignore-generator/#react,dotenv,node,env,npm
