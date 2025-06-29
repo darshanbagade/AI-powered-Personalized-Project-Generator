@@ -1,5 +1,5 @@
 import React from 'react';
-import { Brain, Target, Lightbulb, MessageCircle, BarChart3, Mic, Zap } from 'lucide-react';
+import { Brain, Target, Lightbulb, MessageCircle, BarChart3, FileText , Zap } from 'lucide-react';
 
 const FeaturesSection = () => {
   const features = [
@@ -23,20 +23,20 @@ const FeaturesSection = () => {
     },
     {
       icon: MessageCircle,
-      title: "Expert Guidance",
-      description: "24/7 AI assistant providing progressive hints, detailed explanations, and complete solutions to overcome challenges.",
+      title: "Real World Project",
+      description: "Design and prototype physical systems or devices for real-life scenarios like automation, sensing, or control.",
       color: "indigo"
     },
     {
       icon: BarChart3,
-      title: "Visual Learning",
-      description: "Dynamic flowcharts and interactive visual explanations for enhanced understanding and knowledge retention.",
+      title: "Integrated Compiler",
+      description: "Write, run, and test code directly in the browser with real-time output—no setup needed.",
       color: "blue"
     },
     {
-      icon: Mic,
-      title: "Voice Integration",
-      description: "Seamless voice input capabilities for transcript entry and hands-free interaction with the learning platform.",
+      icon: FileText,
+      title: "Video Transcription",
+      description: "Convert any video into clear, structured text with ease.",
       color: "indigo"
     }
   ];
@@ -50,7 +50,7 @@ const FeaturesSection = () => {
             <span className="text-slate-200 font-medium">Platform Capabilities</span>
           </div>
           <h2 className="text-5xl md:text-6xl font-bold mb-6 text-white">
-            Enterprise Features
+            Features
           </h2>
           <p className="text-xl text-slate-300 max-w-3xl mx-auto font-light">
             Advanced AI-powered learning tools designed for professional development and skill advancement
