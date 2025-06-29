@@ -15,7 +15,7 @@ const HeroSection = () => {
     <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden">
       <div className={`relative z-10 text-center px-4 max-w-6xl mx-auto transform transition-all duration-1000 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
         <div className="mb-8">
-          <div className="inline-flex items-center px-6 py-3 bg-slate-800/60 backdrop-blur-md border border-slate-600/50 rounded-full mb-8">
+          <div className="inline-flex items-center px-6 py-3 bg-slate-800/60 backdrop-blur-md border border-blue-500 rounded-full mb-8">
             <Brain className="h-5 w-5 text-blue-400 mr-3" />
             <span className="text-slate-200 font-medium"> Build Smarter with AI</span>
           </div>
@@ -24,14 +24,14 @@ const HeroSection = () => {
             Concept To Create
           </h1>
           
-          <div className=" items-center justify-center space-x-4 text-3xl md:text-4xl font-medium mb-8">
+          <div className=" items-center justify-center space-x-4 text-3xl md:text-4xl font-medium my-10">
             <span className="text-slate-300">Where</span>
             <ProfessionalTextAnimation texts={professionalTexts} />
             <span className="text-slate-300">Meets Intelligence</span>
           </div>
         </div>
         
-        <p className="text-sm md:text-2xl text-slate-300 mb-12 max-w-4xl mx-auto leading-relaxed font-light">
+        <p className="text-sm md:text-2xl text-slate-300 mb-8 max-w-4xl mx-auto leading-relaxed font-light">
           Transform your learning journey with enterprise-grade AI technology. Bridge the gap between theoretical knowledge and practical application through intelligent concept analysis and personalized project recommendations.
         </p>
         
@@ -43,8 +43,8 @@ const HeroSection = () => {
           </button>
           </Link>
           <Link to='/suggest-project'>
-            <button className="group border-2 border-slate-600 hover:border-blue-500 px-8 py-4 rounded-xl font-semibold text-lg transition-all hover:bg-slate-800/50 flex items-center space-x-3">
-              <span>Explore Real World</span>
+            <button className="group border-2 border-blue-500 hover:border-blue-500 px-8 py-4 rounded-xl font-semibold text-lg transition-all hover:bg-slate-800/50 flex items-center space-x-3">
+              <span>The Real World</span>
             </button>
           </Link>
         </div>
