@@ -3,7 +3,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { getProjectSuggestions } from '../services/projectService';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import ProjectCard from '../components/ProjectCard';
+import TabbedProjectView from '../components/TabbedProjectView';
 import TrueFocus from '../components/Loader';
 import ChatBotWidget from '../components/ChatBotWidget';
 
@@ -69,28 +69,23 @@ const Projects = () => {
   </div>;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br  from-[#000000] via-[#12001eea] to-[#000104] p-6">
+    <div className="min-h-screen bg-gradient-to-br from-[#000000] via-[#12001eea] to-[#000104] p-6">
       <ToastContainer />
       <ChatBotWidget/>
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold text-white mb-2">Projects - Do It Yourself</h1>
-          <p className="text-gray-300">Based on your {level} level in {domain} - {concept}</p>
+          <h1 className="text-4xl font-bold text-white mb-2">Concept To Create</h1>
+          <p className="text-gray-300">Based on your <span className='border-b-2 font-bold text-blue-500'>{level} level</span> in {domain} - {concept}</p>
         </div>
 
-        {/* Project Suggestions */}
-        <div className="mb-8 py-14 ">
-          <h2 className="text-2xl font-bold text-gray-200 mb-4">Recommended Projects</h2>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 ">
-            {suggestions?.projects?.map((project, idx) => (
-              <ProjectCard
-                key={idx}
-                project={project}
-                concept={concept}
-                userLevel={level}
-              />
-            ))}
-          </div>
+        {/* Tabbed Project Suggestions */}
+        <div className="mb-8 py-8">
+          <h2 className="text-2xl font-bold text-gray-200 mb-6 text-center">Recommended Projects</h2>
+          <TabbedProjectView
+            projects={suggestions?.projects || []}
+            concept={concept}
+            userLevel={level}
+          />
         </div>
 
         {/* Boilerplate */}
@@ -104,7 +99,7 @@ const Projects = () => {
                   <button
                     onClick={downloadBoilerplate}
                     className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition"
-                  > 
+                  >
                     Download
                   </button>
                   <button
