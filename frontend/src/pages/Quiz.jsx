@@ -6,8 +6,9 @@ import 'react-toastify/dist/ReactToastify.css';
 import 'remixicon/fonts/remixicon.css';
 import TrueFocus from '../components/Loader';
 
+
 const OPTION_COLORS = [
-  'bg-yellow-400',
+  `bg-[#18192b] shadow-2xl glass-card border border-white/10`,
   'bg-purple-400',
   'bg-orange-400',
   'bg-cyan-400',
@@ -184,7 +185,7 @@ const Quiz = () => {
           {q.options.map((opt, i) => (
             <button
               key={i}
-              className={`h-28 rounded-2xl flex flex-col text-lg items-center justify-center font-bold text-white shadow-lg transition-all duration-1000 transform hover:scale-105 focus:scale-105 focus:outline-none ${OPTION_COLORS[i % OPTION_COLORS.length]} ${submitting ? 'opacity-50 pointer-events-none' : ''}`}
+              className={`h-28 rounded-2xl flex flex-col text-lg items-center justify-center font-bold text-white shadow-lg transition-all duration-1000 transform hover:scale-105 focus:scale-105 focus:outline-none border border-purple-500 bg-purple-800/30 px-7 ${submitting ? 'opacity-50 pointer-events-none' : ''}`}
               onClick={() => handleNext(opt)}
               disabled={submitting}
               style={{ animationDelay: `${i * 0.05}s` }}
