@@ -70,25 +70,6 @@ function ChatBotWidget() {
             <button onClick={() => setIsOpen(false)} className="text-white text-xl">✖</button>
           </div>
 
-          {/* Tag Selectors */}
-          <div className="flex flex-wrap gap-2 justify-center p-2 border-b border-gray-600">
-            <select value={skillLevel} onChange={(e) => setSkillLevel(e.target.value)} className="bg-blue-100 text-blue-800 px-2 py-1 rounded text-sm">
-              <option value="beginner">Beginner</option>
-              <option value="intermediate">Intermediate</option>
-              <option value="advanced">Advanced</option>
-            </select>
-            <select value={domain} onChange={(e) => setDomain(e.target.value)} className="bg-green-100 text-green-800 px-2 py-1 rounded text-sm">
-              <option value="coding">Coding</option>
-              <option value="research">Research</option>
-              <option value="hardware">Hardware</option>
-              <option value="design">Design</option>
-            </select>
-            <select value={mode} onChange={(e) => setMode(e.target.value)} className="bg-purple-100 text-purple-800 px-2 py-1 rounded text-sm">
-              <option value="ideas">Project Idea</option>
-              <option value="help">Need Help</option>
-            </select>
-          </div>
-
           {/* Messages */}
           <div ref={scrollRef} className="flex-1 overflow-y-auto p-4">
             {messages.map((msg, i) => (
