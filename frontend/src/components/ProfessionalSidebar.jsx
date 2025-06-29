@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Home, Zap, Code, Target, Menu, X,Brain } from 'lucide-react';
+import {Link} from 'react-router-dom'
+import { ArrowRight, Play } from 'lucide-react';
 
 const ProfessionalSidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -10,6 +12,7 @@ const ProfessionalSidebar = () => {
     { id: 'features', label: 'Features', icon: Zap, href: '#features' },
     { id: 'samples', label: 'Projects', icon: Code, href: '#samples' },
     { id: 'how-it-works', label: 'Process', icon: Target, href: '#how-it-works' },
+  
   ];
 
   useEffect(() => {
@@ -61,7 +64,7 @@ const ProfessionalSidebar = () => {
             </div>
             <div>
               <h1 className="text-3xl font-bold text-white">
-                DIY
+                Concept To Create
               </h1>
               <p className="text-sm text-slate-400 font-medium">AI Learning Platform</p>
             </div>
@@ -93,6 +96,12 @@ const ProfessionalSidebar = () => {
                 )}
               </button>
             ))}
+            <Link to='/cognitive-test'>
+               <button className="group relative ml-2 mt-4 bg-blue-600 hover:bg-blue-700 px-8 py-4 rounded-xl font-semibold text-lg transition-all transform hover:scale-105 flex items-center space-x-3 shadow-xl">
+                          <span className="relative z-10">Cognitive Test</span>
+                          <ArrowRight className="h-5 w-5 relative z-10 group-hover:translate-x-1 transition-transform" />
+                        </button>
+            </Link>
           </div>
         </nav>
       </div>
