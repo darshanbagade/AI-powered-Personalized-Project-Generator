@@ -44,7 +44,6 @@ const HeroSection = () => {
           </Link>
           <Link to='/suggest-project'>
             <button className="group border-2 border-slate-600 hover:border-blue-500 px-8 py-4 rounded-xl font-semibold text-lg transition-all hover:bg-slate-800/50 flex items-center space-x-3">
-              <Play className="h-5 w-5" />
               <span>Explore Real World</span>
             </button>
           </Link>
