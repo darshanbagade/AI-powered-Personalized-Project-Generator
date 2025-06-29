@@ -31,7 +31,8 @@ function ChatBotWidget() {
     setInput("");
 
     try {
-      const res = await fetch("http://localhost:5000/api/chatbot/generate-projects", {
+      const API_BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:5000/api";
+      const res = await fetch(`${API_BASE_URL}/chatbot/generate-projects`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ input, skillLevel, domain, mode }),

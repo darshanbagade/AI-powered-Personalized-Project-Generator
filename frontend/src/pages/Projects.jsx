@@ -61,7 +61,8 @@ const Projects = () => {
     setRunning(true);
     setRunOutput('');
     try {
-      const res = await axios.post('/api/code/run-code', {
+      const API_BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:5000/api";
+      const res = await axios.post(`${API_BASE_URL}/code/run-code`, {
         code: editorCode,
         language: editorLanguage,
       });
