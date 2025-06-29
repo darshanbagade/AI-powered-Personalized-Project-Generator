@@ -176,15 +176,15 @@ const Quiz = () => {
             : 'opacity-100 scale-100 translate-x-0'
         }`}
       >
-        <div className="bg-black/60 rounded-2xl shadow-2xl p-8 w-full flex flex-col items-center mb-8 animate-fade-in">
-          <div className="text-white text-2xl font-bold text-center mb-2">{q.question}</div>
+        <div className="bg-black/60 rounded-2xl shadow-2xl p-8 w-full flex flex-col items-center mb-8 animate-fade-in border-white border-1">
+          <div className="text-white  text-lg font-bold text-center mb-2">{q.question}</div>
         </div>
         {/* Option Cards */}
-        <div className="grid grid-cols-2 gap-6 w-full">
+        <div className="grid grid-cols-1 gap-6 w-full">
           {q.options.map((opt, i) => (
             <button
               key={i}
-              className={`h-28 rounded-2xl flex items-center justify-center text-2xl font-bold text-white shadow-lg transition-all duration-300 transform hover:scale-105 focus:scale-105 focus:outline-none ${OPTION_COLORS[i % OPTION_COLORS.length]} ${submitting ? 'opacity-50 pointer-events-none' : ''}`}
+              className={`h-28 rounded-2xl flex flex-col text-lg items-center justify-center font-bold text-white shadow-lg transition-all duration-1000 transform hover:scale-105 focus:scale-105 focus:outline-none ${OPTION_COLORS[i % OPTION_COLORS.length]} ${submitting ? 'opacity-50 pointer-events-none' : ''}`}
               onClick={() => handleNext(opt)}
               disabled={submitting}
               style={{ animationDelay: `${i * 0.05}s` }}
