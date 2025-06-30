@@ -1,291 +1,192 @@
-# Personal Privacy Dashboard
+# AI-powered Personalized Project Generator
 
-**Personal Privacy Dashboard** is a comprehensive AI-powered learning platform that helps users understand and apply privacy concepts through interactive quizzes, personalized project suggestions, and intelligent content analysis. Built with modern web technologies, it provides a secure and engaging environment for privacy education.
 
----
+## Problem Statement
 
-## Project Overview
-
-This platform addresses the growing need for privacy education by offering:
-
-- **Interactive Learning**: AI-generated quizzes based on user input concepts
-- **Personalized Projects**: Tailored project suggestions using semantic analysis
-- **Multi-Modal Input**: Support for both text concepts and video transcript analysis
-- **Skill Assessment**: Dynamic difficulty adjustment based on user performance
-- **Secure Authentication**: Complete user management with email verification
-
-Whether you're a privacy professional, student, or enthusiast, this dashboard empowers you to learn privacy concepts through hands-on practice and assessment.
+Students often feel motivated after learning a new concept but struggle to decide what to build or how to start. This leads to missed opportunities for hands-on learning and skill development.
 
 ---
 
-## Architecture
+## Features
 
-### Frontend (React + Vite)
-
-- **UI Framework**: React 19 with modern hooks and context
-- **Styling**: Tailwind CSS with custom components
-- **Routing**: React Router v7 with protected routes
-- **State Management**: Context API for authentication
-- **Animations**: Framer Motion for smooth interactions
-
-### Backend (Node.js + Express)
-
-- **Server**: Express.js with ES modules
-- **Database**: MongoDB with Mongoose ODM
-- **Authentication**: JWT with bcrypt password hashing
-- **Email**: Nodemailer for verification emails
-- **AI Integration**: Google Gemini API for content generation
-
-### AI Services (Python + Flask)
-
-- **Semantic Analysis**: Sentence transformers for project matching
-- **Text Processing**: TextBlob for text correction
-- **Data Processing**: Pandas for Excel data handling
-- **ML Models**: Pre-trained embeddings for similarity matching
+- Concept-wise AI-generated quizzes to identify current skill level
+- Personalized DIY project suggestions across domains (Coding, Research, Hardware, etc.)
+- Project idea generation from user input (concepts, transcripts)
+- Step-by-step project hints instead of full solutions
+- AI-powered chatbot mentor to assist when stuck
+- GitHub/blog resource recommender based on user project
+- NLP-based real-world project generator (via NPM package)
 
 ---
 
-## Key Features
+## Key Functionalities
 
-### Authentication System
+### 1. User Input System
 
-- User registration with email verification
-- Secure login with JWT tokens
-- Password reset functionality
-- Protected route management
+- Inputs: Topic name, concept, or video transcript
+- Optional: Voice input or YouTube link (future scope)
+- Selectable options: Skill level (Beginner to Advanced), Domain (Coding, Hardware, Research, Design, Mixed)
 
-### AI-Powered Learning
+### 2. Skill Level Detection
 
-- **Concept Analysis**: Extract keywords and summaries from user input
-- **Quiz Generation**: Create personalized quizzes with multiple question types
-- **Answer Evaluation**: Intelligent assessment with detailed feedback
-- **Project Suggestions**: Semantic matching for relevant project ideas
+- Auto-generated multiple-choice quizzes
+- Adaptive scoring and level detection
 
-### Interactive Assessment
+### 3. Project Idea Generation
 
-- Multiple Choice Questions to test theoretical knowledge
-- Fill-in-the-Blanks to assess understanding of key concepts
-- Real-world Scenarios for practical application
-- Dynamic Scoring and adaptive difficulty based on performance
+- Uses Gemini or GPT API to generate 3 personalized project ideas with:
+    - Title, Description, Tags (e.g., Internship-ready, Portfolio)
+    - Step-by-step hint guide
+    - Domain filtering
+    - GitHub/blog/article suggestion
+    - Public build tips
 
-### Project Recommendations
+### 4. Chat-based AI Assistant
 
-- Semantic Matching to find projects based on user interests
-- Category Filtering across Software, Hardware, and Research
-- Difficulty Levels from Beginner to Advanced
-- Personalized Results based on the user’s learning level
+- Virtual mentor with guidance on concepts, debugging, and learning paths
+
+### 5. Real-World Project Generator (NLP)
+
+- Based on government-identified challenges using semantic analysis
+
+### 6. Resource Recommender
+
+- GitHub/blog suggestions based on project
+- Optional GitHub API integration for live data
 
 ---
 
-## Installation Guide
+## Tech Stack
+
+| Layer | Tools |
+| --- | --- |
+| Frontend | React, Tailwind CSS |
+| Backend | Node.js, Express, MongoDB |
+| AI | Gemini API, OpenRouter, Python NLP |
+| Hosting | Vercel (frontend), Render/Fly.io |
+| Extras | GitHub API, YouTube Transcript API |
+
+---
+
+## Setup Instructions
 
 ### Prerequisites
 
 - Node.js v18+
 - Python 3.10+
-- MongoDB instance
-- Google Gemini API key
+- MongoDB Atlas or local instance
+- Gemini API Key
 
-### 1. Clone the Repository
+### Clone the Repository
 
-```bash
-git clone <your-repo-url>
-cd Personal-Privacy-Dashboard
-
-```
-
-### 2. Backend Setup
+### Backend Setup
 
 ```bash
 cd backend
-npm insta
-
+npm install
 ```
 
-Create a `.env` file:
+Create a `.env` file with the following:
 
-```json
-MONGO_URI=your_mongodb_connection_string
+```
+MONGO_URI=your_mongodb_uri
 JWT_SECRET=your_jwt_secret
 GEMINI_API_KEY=your_gemini_api_key
-GEMINI_API_KEY2=your_secondary_gemini_key
-EMAIL_USER=your_email@gmail.com
-EMAIL_PASS=your_email_app_password
-
+EMAIL_USER=your_email
+EMAIL_PASS=your_email_password
 ```
 
-### 3. Frontend Setup
+### Frontend Setup
 
 ```bash
 cd ../frontend
 npm install
+npm run dev
 ```
 
-### 4. Python Backend Setup
+### Python AI Service
 
 ```bash
-cd ../python\ backend
+cd ../python\\ backend
 python -m venv venv
-
-# Windows
-venv\Scripts\activate
-
-# Linux/Mac
-source venv/bin/activate
+# Activate environment
+venv\\Scripts\\activate  # Windows
+# or
+source venv/bin/activate  # Linux/Mac
 
 pip install -r requirements.txt
-
-```
-
-### 5. Start All Services
-
-**Terminal 1 - Python AI Service**
-
-```bash
-cd python\ backend
 python app.py
 
 ```
 
-**Terminal 2 - Node.js Backend**
+## Access the App
 
-```bash
-cd backend
-npm start
-```
-
-**Terminal 3 - React Frontend**
-
-```bash
-cd frontend
-npm run dev
-```
-
-Access the application at: `http://localhost:5173`
-
----
-
-## Usage Examples
-
-### Learning Flow
-
-1. Register/Login – Create account with email verification
-2. Input Concept – Enter privacy topic or upload video transcript
-3. Take Quiz – Complete AI-generated assessment
-4. Get Projects – Receive personalized project suggestions
-5. Track Progress – Monitor learning journey in dashboard
-
-### Sample Input
-
-```
-Concept: "Data Privacy in IoT"
-Domains: ["Software", "Hardware"]
-
-```
-
-### Sample Output
-
-```json
-
-{
-  "level": "Intermediate",
-  "projects": [
-    {
-      "title": "IoT Privacy Monitor",
-      "description": "Build a system to detect privacy violations...",
-      "category": "Hardware",
-      "difficulty": "Intermediate"
-    }
-  ]
-}
-
-```
+Visit: `http://localhost:5173`
 
 ---
 
 ## API Endpoints
 
-### Authentication
+### Auth
 
-- `POST /api/auth/register` – User registration
-- `POST /api/auth/login` – User login
-- `POST /api/auth/verify-email` – Email verification
-- `POST /api/auth/reset-password` – Password reset
+- POST `/api/auth/register`
+- POST `/api/auth/login`
+- POST `/api/auth/verify-email`
+- POST `/api/auth/reset-password`
 
 ### AI Services
 
-- `POST /api/chatbot/analyze-input` – Analyze user concepts
-- `POST /api/chatbot/generate-quiz` – Create personalized quizzes
-- `POST /api/chatbot/evaluate-answers` – Assess quiz responses
-- `POST /api/chatbot/suggest-projects` – Get project recommendations
+- POST `/api/chatbot/analyze-input`
+- POST `/api/chatbot/generate-quiz`
+- POST `/api/chatbot/evaluate-answers`
+- POST `/api/chatbot/suggest-projects`
 
-### Python AI Service
+### Python Service
 
-- `POST /suggest` – Semantic project matching
+- POST `/suggest`
 
----
+## UI Highlights
 
-## UI Components
-
-- Responsive Design using Tailwind CSS
-- Dark Theme interface
-- Loading States with animations and feedback
-- Toast Notifications for alerts and messages
-- Protected Routes with authentication guards
-
----
+- Chat interface with feedback animations
+- Protected routes with auth guard
+- Dark mode styling
+- Responsive layout
 
 ## Security Features
 
 - JWT Authentication
-- Password Hashing with bcrypt
-- Email Verification
-- CORS Protection
-- Input Validation
+- Password hashing with bcrypt
+- Email verification
+- Input validation and CORS protection
 
----
-
-## Development
-
-### Code Structure
+## Folder Structure
 
 ```
-bash
-├── backend/
-│   ├── controllers/     # Request handlers
-│   ├── services/        # Business logic
-│   ├── routes/          # API endpoints
-│   ├── middlewares/     # Authentication & validation
-│   └── utils/           # Helper functions
+Always show details
+Copy├── backend/
+│   ├── controllers/
+│   ├── services/
+│   ├── routes/
+│   ├── middlewares/
+│   └── utils/
 ├── frontend/
-│   ├── src/
-│   │   ├── components/  # Reusable UI components
-│   │   ├── pages/       # Route components
-│   │   ├── services/    # API calls
-│   │   └── context/     # State management
-└── python backend/      # AI services
+│   ├── components/
+│   ├── pages/
+│   ├── services/
+│   └── context/
+└── python backend/
 
 ```
 
-### Environment Variables
+## Development Guidelines
 
-Create appropriate `.env` files in each service directory with the required configuration.
-
----
+- Follow ESLint rules for consistency
+- Write clear commits and test features locally
+- Document new additions
 
 ## Contributing
 
-1. Fork the repository
-2. Create a feature branch: `git checkout -b feature/amazing-feature`
-3. Commit your changes: `git commit -m 'Add amazing feature'`
-4. Push to the branch: `git push origin feature/amazing-feature`
-5. Open a Pull Request
-
-### Development Guidelines
-
-- Follow ESLint configuration
-- Write meaningful commit messages
-- Test all features before submitting
-- Update documentation for new features
-
----
+1. Fork the repo
+2. Create a feature branch
+3. Commit your changes
+4. Open a pull request
